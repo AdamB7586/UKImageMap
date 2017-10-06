@@ -1,0 +1,26 @@
+{
+  "name": "driving-test-report",
+  "authors": [
+    "Adam Binnersley <abinnersley@gmail.com>"
+  ],
+  "description": "A driving test report with modal functionality",
+  "main": "",
+  "keywords": [
+    "driving",
+    "test",
+    "report"
+  ],
+  "license": "None",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7"
+  }
+}

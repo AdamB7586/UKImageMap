@@ -1,0 +1,24 @@
+{
+    "name": "adamb/uk-map",
+    "description": "Generate a map of the uk with clickable regions",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Adam Binnersley",
+            "email": "abinnersley@gmail.com"
+        }
+    ],
+    "require": {
+        "adamb/database": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "UKMap\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UKMap\\Tests\\": "tests/"
+        }
+    }
+}

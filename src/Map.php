@@ -22,7 +22,7 @@ class Map{
      * @return array|false If regions exist they will be returned as an array else will return false
      */
     public function getRegions() {
-        return self::$db->selectAll($this->table_uk);
+        return self::$db->selectAll($this->table_uk, array(), '*', array('postcode' => 'ASC'));
     }
     
     /**

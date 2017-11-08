@@ -4,7 +4,7 @@ namespace UKMap;
 use DBAL\Database;
 
 class Map{
-    protected static $db;
+    protected $db;
     
     public $table_uk = 'areas';
     public $table_regions = 'postcodes';
@@ -14,7 +14,7 @@ class Map{
      * @param Database $db This should be an instance of the database object
      */
     public function __construct(Database $db) {
-        self::$db = $db;
+        $this->db = $db;
     }
     
     /**
@@ -22,7 +22,7 @@ class Map{
      * @return array|false If regions exist they will be returned as an array else will return false
      */
     public function getRegions() {
-        return self::$db->selectAll($this->table_uk);
+        return $this->db->selectAll($this->table_uk);
     }
     
     /**
@@ -31,7 +31,7 @@ class Map{
      * @return array|false If postcode areas exist for the region they will be returned as an array else will return false
      */
     public function getRegionPostcodes($region) {
-        return self::$db->selectAll($this->table_regions, array('area' => $region), '*', array('postcode' => 'ASC'));
+        return $this->db->selectAll($this->table_regions, array('area' => $region), '*', array('postcode' => 'ASC'));
     }
     
     /**
@@ -40,7 +40,37 @@ class Map{
      * @return array|false If the region exists the information will be returned as an array else will return false
      */
     public function getRegionInfo($region) {
-        return self::$db->select($this->table_uk, array('url' => $region));
+        return $this->db->select($this->table_uk, array('url' => $region));
+    }
+    
+    /**
+     * Gets the information for a postcode by the URL
+     * @param string $url This should be the URL for the selected postcode
+     * @return array|false If the postcode information exists will return an array else will return false
+     */
+    public function getPostcodeAreaInfoByURL($url){
+        return $this->getPostcodeAreasInfo(array('url' => $url));
+    }
+    
+    /**
+     * Gets the information for a postcode by the Postcode for this area e.g. WF, LS, AB, LN, etc
+     * @param string $postcode This should be the postcode 
+     * @return array|false If the postcode information exists will return an array else will return false
+     */
+    public function getPostcodeAreaInfoByPostcode($postcode){
+        return $this->getPostcodeAreasInfo(array('postcode' => strtoupper($postcode)));
+    }
+    
+    /**
+     * Returns postcode area information based on the the given where parameters 
+     * @param array $where This should be an array containing the fields and values you wish to search using
+     * @return array|false If the postcode information exists will return an array else will return false
+     */
+    protected function getPostcodeAreasInfo($where){
+        if(is_array($where)){
+            return $this->db->select($this->table_regions, $where);
+        }
+        return false;
     }
     
 }

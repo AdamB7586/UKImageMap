@@ -73,4 +73,20 @@ class Map{
         return false;
     }
     
+    /**
+     * List of all the postcode areas and details
+     * @return array|false Will return a list of all of the postcode areas in the database if any exists else will return false
+     */
+    public function listPostcodeAreas(){
+        return $this->db->selectAll($this->table_regions);
+    }
+    
+    /**
+     * Counts the number of postcode areas which exist in the database
+     * @return int Will return the number of postcode areas in the database
+     */
+    public function countPostcodeAreas(){
+        return $this->db->count($this->table_regions);
+    }
+    
 }

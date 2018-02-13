@@ -2,7 +2,7 @@
     "name": "adamb/uk-map",
     "description": "Generate a map of the uk with clickable regions",
     "type": "library",
-    "license": "None",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Adam Binnersley",

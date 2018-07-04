@@ -2,19 +2,19 @@
 namespace UKMap;
 
 use DBAL\Database;
+use Configuration\Config;
 
 class Map{
     protected $db;
-    
-    public $table_uk = 'areas';
-    public $table_regions = 'postcodes';
+    protected $config;
     
     /**
      * Constructor add an instance of the database object
      * @param Database $db This should be an instance of the database object
      */
-    public function __construct(Database $db) {
+    public function __construct(Database $db, Config $config) {
         $this->db = $db;
+        $this->config = $config;
     }
     
     /**
@@ -22,7 +22,7 @@ class Map{
      * @return array|false If regions exist they will be returned as an array else will return false
      */
     public function getRegions() {
-        return $this->db->selectAll($this->table_uk);
+        return $this->db->selectAll($this->config->table_uk);
     }
     
     /**
@@ -31,7 +31,7 @@ class Map{
      * @return array|false If postcode areas exist for the region they will be returned as an array else will return false
      */
     public function getRegionPostcodes($region) {
-        return $this->db->selectAll($this->table_regions, array('area' => $region), '*', array('postcode' => 'ASC'));
+        return $this->db->selectAll($this->config->table_regions, array('area' => $region), '*', array('postcode' => 'ASC'));
     }
     
     /**
@@ -40,7 +40,7 @@ class Map{
      * @return array|false If the region exists the information will be returned as an array else will return false
      */
     public function getRegionInfo($region) {
-        return $this->db->select($this->table_uk, array('url' => $region));
+        return $this->db->select($this->config->table_uk, array('url' => $region));
     }
     
     /**
@@ -68,7 +68,7 @@ class Map{
      */
     protected function getPostcodeAreasInfo($where){
         if(is_array($where)){
-            return $this->db->select($this->table_regions, $where);
+            return $this->db->select($this->config->table_regions, $where);
         }
         return false;
     }
@@ -78,7 +78,7 @@ class Map{
      * @return array|false Will return a list of all of the postcode areas in the database if any exists else will return false
      */
     public function listPostcodeAreas(){
-        return $this->db->selectAll($this->table_regions);
+        return $this->db->selectAll($this->config->table_regions);
     }
     
     /**
@@ -86,7 +86,7 @@ class Map{
      * @return int Will return the number of postcode areas in the database
      */
     public function countPostcodeAreas(){
-        return $this->db->count($this->table_regions);
+        return $this->db->count($this->config->table_regions);
     }
     
 }

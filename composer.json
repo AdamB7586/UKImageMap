@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "adamb/database": "^1.0"
+        "adamb/database": "^1.0",
+        "adamb/config": "^1.0"
     },
     "autoload": {
         "psr-4": {
